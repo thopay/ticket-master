@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const Event = ({ backgroundImage, title, subtitle }) => {
+const Event = ({ backgroundImage, title, subtitle, onPress }) => {
 	return (
-		<View style={styles.card}>
+		<TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={1}>
 			<Image
 				source={backgroundImage}
 				style={styles.image}
@@ -22,25 +22,25 @@ const Event = ({ backgroundImage, title, subtitle }) => {
 				<Entypo name="ticket" size={16} color="white" />
 				<Text style={styles.ticketText}>1 ticket</Text>
 			</View>
-		</View>
+		</TouchableOpacity>
 	);
 };
 
 const styles = StyleSheet.create({
 	card: {
 		marginHorizontal: 10,
-		marginTop: 10,
-		width: '95%',
+		marginTop: 8,
+		width: '96%',
 		height: 218,
 		position: 'relative',
 		display: 'flex',
-		backgroundColor: 'black',
 	},
 
 	textContainer: {
 		position: 'absolute',
 		bottom: 33,
-		left: 15
+		left: 15,
+		maxWidth: '99%',
 	},
 
 	title: {

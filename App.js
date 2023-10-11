@@ -1,9 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Navbar from './components/Navbar';
-import BottomNav from './components/BottomNav';
-import Event from './components/Event';
+import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import MyEvents from './screens/MyEvents';
+import MyTickets from './screens/MyTickets';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -12,27 +13,24 @@ export default function App() {
     'Averta-Light': require('./assets/fonts/Averta-Light.otf'),
   });
 
-  return (
-    <>
-      <StatusBar barStyle="light-content" />
-      <Navbar />
-      <View style={styles.container}>
-        <Event
-          backgroundImage={require('./assets/Buffalos.jpeg')}
-          title={'Colorado Buffaloes Football vs. Stanford Cardinal Football'} 
-          subtitle={'Fri, Oct 8, 8pm • Folsom Field Stadium'} 
-        />
-      </View>
-      <BottomNav />
-    </>
-  );
+  const Stack = createNativeStackNavigator();
+
+  if(!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+          headerShown: false
+        }}>
+          <Stack.Screen name="My Events" component={MyEvents} />
+          <Stack.Screen name="My Tickets" component={MyTickets} options={{
+            presentation: 'transparentModal',
+          }}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'top',
-  },
-});
