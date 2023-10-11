@@ -24,13 +24,13 @@ npm install -g expo-cli
 Firstly, clone the repository to your local machine:
 
 ```sh
-git clone https://github.com/yourusername/YourApp.git
+git clone https://github.com/thopay/ticket-master.git
 ```
 
 Then, navigate into the project directory:
 
 ```sh
-cd YourApp
+cd ticket-master
 ```
 
 Install the project dependencies:
@@ -55,11 +55,3 @@ If you have an iOS or Android simulator installed, you can press `i` to run on i
 
 - React Native - a JavaScript framework for writing real, natively rendering mobile applications for iOS and Android
 - Expo - a framework and a platform for universal React applications
-
-## Contributing
-
-We welcome contributions! Please see our [Contributing guide](CONTRIBUTING.md).
-
-## License
-
-This project is licensed under the [insert license here] - see the [LICENSE](LICENSE) file for more details.
