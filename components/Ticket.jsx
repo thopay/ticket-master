@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import * as Haptics from 'expo-haptics';
+import * as Haptics from "expo-haptics";
+import * as Brightness from 'expo-brightness';
 
-const Ticket = ({ backgroundImage, title, subtitle, onPress }) => {
+const Ticket = ({ backgroundImage, title, subtitle, onPress, navigation }) => {
+
+    useEffect(() => {
+        (async () => {
+          const { status } = await Brightness.requestPermissionsAsync();
+          if (status === 'granted') {
+            Brightness.setSystemBrightnessAsync(1);
+          }
+        })();
+      }, []);
+
     return (
         <View style={styles.card}>
             <View style={styles.headerRow}>
@@ -51,20 +62,42 @@ const Ticket = ({ backgroundImage, title, subtitle, onPress }) => {
                     </Text>
                 </View>
                 <View style={styles.appleWallet}>
-					<TouchableOpacity onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)} activeOpacity={1} activeOpacity={1}>
-						<Image
-							style={styles.appleWalletImage}
-							source={require("../assets/appleWallet.png")}
-						/>
-					</TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() =>
+                            Haptics.impactAsync(
+                                Haptics.ImpactFeedbackStyle.Heavy
+                            )
+                        }
+                        activeOpacity={1}
+                    >
+                        <Image
+                            style={styles.appleWalletImage}
+                            source={require("../assets/appleWallet.png")}
+                        />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.optionsRow}>
-					<TouchableOpacity onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)} activeOpacity={1}>
-                    	<Text style={styles.optionsText}>View Barcode</Text>
-					</TouchableOpacity>
-					<TouchableOpacity onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)} activeOpacity={1}>
-                    	<Text style={styles.optionsText}>Ticket Details</Text>
-					</TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            Haptics.impactAsync(
+                                Haptics.ImpactFeedbackStyle.Heavy
+                            );
+                            navigation.navigate("Barcode");
+                        }}
+                        activeOpacity={1}
+                    >
+                        <Text style={styles.optionsText}>View Barcode</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() =>
+                            Haptics.impactAsync(
+                                Haptics.ImpactFeedbackStyle.Heavy
+                            )
+                        }
+                        activeOpacity={1}
+                    >
+                        <Text style={styles.optionsText}>Ticket Details</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.footerRow}></View>
